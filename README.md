@@ -3,7 +3,7 @@ This repository contains the design and implementation of a CMOS differential am
 
 #Features:
 1. Design Calculations: Detailed calculations for transistor sizing, biasing, and component selection are provided to ensure optimal amplifier performance.
-2. Schematic Design: The amplifier circuit is implemented using industry-standard design tools such as Cadence Virtuoso or LTspice, showcasing proper layout and connectivity.
+2. Schematic Design: The amplifier circuit is implemented using industry-standard design tools such as LTSpice or Tanner EDA showcasing proper layout and connectivity.
 3. Simulation Results: Simulation files and results are included to validate the amplifier's functionality and analyze its performance under various operating conditions.
 4. Performance Metrics: Key performance metrics such as gain, bandwidth, input/output resistance, and power consumption are analyzed to assess the amplifier's suitability for different applications.
 5. Documentation: Comprehensive documentation is provided, including design methodology, analysis techniques, and interpretation of simulation results.
