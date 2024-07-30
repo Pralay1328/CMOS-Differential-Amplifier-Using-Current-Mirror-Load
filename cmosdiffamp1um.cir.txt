@@ -1,0 +1,58 @@
+* E:\Projects\CMOS* E:\Projects\CMOS Differential Amplifier\CMOS Differential Amplifier with Current Mirror Load.asc
+*.include ./p045/p045_cmos_models_tt.inc
+* Differential Amplifier with Current-Mirror Load
+* Specifications:
+* VDD = 2.5V
+* Slew Rate >= 10 V/ms (CL = 5 pF)
+* f3dB >= 100 kHz (CL = 5 pF)
+* Differential Voltage Gain = 100 V/V
+* ICMR = -1.5V to 2V
+* Power Dissipation <= 1 mW
+
+* Define model parameters
+.model NMOS NMOS (Kp=110u Vto=0.7 Lambda=0.04)
+.model PMOS PMOS (Kp=50u Vto=-0.7 Lambda=0.05)
+
+
+* Transistors
+M1 N002 N004 N006 0 NMOS l=1u w=18.4u
+M2 Vout N005 N006 0 NMOS l=1u w=18.4u
+M3 N006 N003 0 0 NMOS l=1u w=301u
+M4 N003 N003 0 0 NMOS l=1u w=301u
+M5 N001 N002 N002 N001 PMOS l=1u w=8u
+M6 N001 N002 Vout N001 PMOS l=1u w=8u
+
+* Input signals
+V1 N004 N008 SINE(0 4m 1k) AC 1
+V2 N005 N007 SINE(0 4m 1k 0 0 180)
+;V1 N004 N008 PULSE(-2.5 2.5 0 1n 1n 10n 20n)
+;V2 N005 N007 PULSE(2.5 -2.5 0 1n 1n 10n 20n)
+
+* Power supplies
+VDD N001 0 2.5
+
+* Bias voltage for tail current source
+V4 N007 0 1.2
+V3 N008 0 1.2
+
+* Tail current source
+I1 0 N003 50µ
+
+* Load capacitance
+C1 Vout 0 5p
+
+* Simulation commands
+;.tran 10m
+;.tran 50n 100n
+.dc V1 -1.5 2.0 0.01
+;.dc V2 -1.5 1.2 0.01
+;.ac dec 10 10 20Meg
+;.noise V(Vout) V1 dec 10 10 1Meg
+.meas Vout PP V(Vout)
+.meas Vin PP V(N004)-V(N005)
+.meas Gain param Vout/Vin
+
+;.op 500n
+
+* End of file
+.end

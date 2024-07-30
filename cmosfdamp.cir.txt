@@ -1,0 +1,41 @@
+* E:\Projects\CMOS* E:\Projects\CMOS Differential Amplifier\CMOS Differential Amplifier with Current Mirror Load.asc
+*.include ./p045/p045_cmos_models_tt.inc
+* Differential Amplifier with Current-Mirror Load
+* Specifications:
+* VDD = 2.5V
+* Slew Rate >= 10 V/ms (CL = 5 pF)
+* f3dB >= 100 kHz (CL = 5 pF)
+* Differential Voltage Gain = 100 V/V
+* ICMR = -1.5V to 2V
+* Power Dissipation <= 1 mW
+
+.include C:\Users\PRALAY\Downloads\p18\p18_model_card.inc
+;.model NMOS NMOS (Kp=110u Vto=0.7 Lambda=0.04)
+;.model PMOS PMOS (Kp=50u Vto=-0.7 Lambda=0.05)
+
+M1 N002 N004 N006 0 NMOS l=180n w=3.312u
+M2 Vout N005 N006 0 NMOS l=180n w=3.312u
+M3 N006 N003 0 0 NMOS l=180n w=54.18u
+M4 N003 N003 0 0 NMOS l=180n w=54.18u
+M5 N001 N002 N002 N001 PMOS l=180n w=1.44u
+M6 N001 N002 Vout N001 PMOS l=180n w=1.44u
+V1 N004 N008 SINE(0 4m 1k) AC 1
+VDD N001 0 2.5
+V2 N005 N007 SINE(0 4m 1k 0 0 180)
+V4 N007 0 1.2
+I1 0 N003 50µ
+V3 N008 0 1.2
+C1 Vout 0 5p
+;.model NMOS NMOS
+;.model PMOS PMOS
+;.include C:\Users\PRALAY\Downloads\p18\p18_model_card.inc
+;.tran 10m
+;.dc V1 -1.5 2.0 0.01
+;.dc V2 -1.5 1.2 0.01
+.ac dec 10 10 1Meg
+.op 500n
+;.backanno
+.end
+;op 500n
+.backanno
+.end
